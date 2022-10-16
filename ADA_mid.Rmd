@@ -1,0 +1,34 @@
+---
+title: "ADA_Midtern"
+output:
+  html_document: default
+  pdf_document: default
+date: "2022-10-16"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+#read the csv file from github
+titanic <-
+  read_csv("https://raw.githubusercontent.com/kijohnson/Data/main/titanic.csv",show_col_types = FALSE)
+```
+
+```{r}
+#determine the median for each passenger class category
+tapply(titanic$Age, titanic$Pclass, median)
+```
+
+```{r}
+# Box plot that shows medians, spread of data, and outliers for the continuous variable age according to passenger class
+titanic$Pclass <- factor(titanic$Pclass, levels = c("1", "2","3"))
+ggplot(data = titanic, aes(x = Pclass, y = Age)) +
+  geom_boxplot() +
+  labs(x = "Pclass", y = "Age",  title = "Boxplot")
+```
+
+
